@@ -31,7 +31,7 @@ const CoursesReactTable=()=>{
   },[]);
   async function deleteCourse(id) {
 
-    const confirmed = window.confirm('Are you sure you want to delete this school?');
+    const confirmed = window.confirm('Are you sure you want to delete this course?');
     if (!confirmed) {
       return;
     }
