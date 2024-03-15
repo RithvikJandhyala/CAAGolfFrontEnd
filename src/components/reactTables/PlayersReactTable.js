@@ -50,8 +50,8 @@ const PlayersReactTable=()=>{
         accessor: 'name',
       },
       {
-        Header: 'Ranking',
-        accessor: 'ranking', 
+        Header: 'Average Score',
+        accessor: 'rank', 
       },
       
       

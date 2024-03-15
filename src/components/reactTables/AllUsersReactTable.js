@@ -91,6 +91,10 @@ const AllUsersReactTable=()=>{
         accessor: 'lastName',        
       },
       {
+        Header: 'Phone Number',
+        accessor: 'phoneNumber',        
+      },
+      {
         Header: 'Home Team',
         Cell: tableProps => (
             <div>     

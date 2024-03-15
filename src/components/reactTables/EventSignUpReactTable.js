@@ -24,22 +24,21 @@ const EventSignUpReactTable=()=>{
   const [isSchoolImagesLoaded, setIsSchoolImagesLoaded] = useState(false);
  
   useEffect(()=>{
-    SchoolService.getSchools().then((response) => {                 
-      for(var i = 0; i < response.data.length; i++) 
-      {
-              {schoolImages.push({
-                  name: response.data[i].name,
-                  image: response.data[i].image,
-              });
-          }
-      }
-      setSchoolImages(schoolImages);
-      setIsSchoolImagesLoaded(true); 
-      console.log("School Service Called")   
-    });
     async function fetchData() {
-     
       setLoading(true);
+      await SchoolService.getSchools().then((response) => {                 
+        for(var i = 0; i < response.data.length; i++) 
+        {
+                {schoolImages.push({
+                    name: response.data[i].name,
+                    image: response.data[i].image,
+                });
+            }
+        }
+        setSchoolImages(schoolImages);
+        setIsSchoolImagesLoaded(true); 
+        console.log("School Service Called")   
+      });
       await EventService.getEvents().then((response) => {           
         setEvents(response.data);
       });
@@ -121,7 +120,7 @@ const EventSignUpReactTable=()=>{
               </div> ),
           },
           {
-            Header: 'Tee Times',
+            Header: '# Slots',
             accessor: 'teeTimes' ,
            // accessor: d => (<div>{d.player1ID} - {d.player1Name}</div>),
           },
@@ -131,7 +130,7 @@ const EventSignUpReactTable=()=>{
            // accessor: d => (<div>{d.player1ID} - {d.player1Name}</div>),
           },
           {  
-            Header: (localStorage.role != 'Admin' )? 'Status':' ',
+            Header: (localStorage.role != 'Admin' )? 'Sign Up':' ',
             Cell: tableProps => (
               <div>
                   {localStorage.role != 'Admin' && (

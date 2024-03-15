@@ -115,8 +115,8 @@ const AllPlayersReactTable=()=>{
         accessor: 'school',
       },
       {
-        Header: 'Ranking',
-        accessor: 'ranking', 
+        Header: 'Average Score',
+        accessor: 'rank', 
         
         
       },

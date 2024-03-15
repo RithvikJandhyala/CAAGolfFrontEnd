@@ -105,17 +105,13 @@ const EventScoringReactTable=()=>{
           },
           {
             Header: 'Player',
+            accessor: 'playerName',
             Cell: tableProps => (
               <div>  
-           
-           <img  src= {pic} style={{ width: 30, height:30 }} className = 'player1' />
+                  <img  src= {pic} style={{ width: 30, height:30 }} className = 'player1' />
                   {tableProps.row.original.playerID} - {tableProps.row.original.playerName}
-                 
-        
-                
-              </div> 
-            ),
-            accessor: 'player' ,
+             </div> 
+            )
            // accessor: d => (<div>{d.player1ID} - {d.player1Name}</div>),
           },
           {
@@ -240,15 +236,11 @@ const EventScoringReactTable=()=>{
   } 
   return (
     <div>
-          <EditScoreModal idle={idle} setIdle={setIdle}></EditScoreModal>
+        <EditScoreModal idle={idle} setIdle={setIdle}></EditScoreModal>
          <h1 className = "text-center"><GiGolfTee style={{ marginBottom: 10,marginRight: 5}}/>Event Scoring</h1>
          <div style={{float:"right",paddingRight:10}}> 
          {(localStorage.role != "Admin")? <button type="button" className = "btn btn-primary mb-2 " onClick={()=>{navigate('/add-scores')}} style={{marginRight: 10}}><MdScoreboard style={{ width: 20,height:20,marginRight: 5,marginBottom:2}}/>Add Scores</button> : <></>}
-
-            
-            
-            
-            <CSVLink data = {data} filename = 'Golf Event Scorings'> <button type="button" className = "btn btn-primary mb-2">  <SiIcons.SiMicrosoftexcel  style={{ width: 20,height:20,marginRight: 5 ,marginBottom: 3}}/>Download</button> </CSVLink>
+         <CSVLink data = {data} filename = 'Golf Event Scorings'> <button type="button" className = "btn btn-primary mb-2">  <SiIcons.SiMicrosoftexcel  style={{ width: 20,height:20,marginRight: 5 ,marginBottom: 3}}/>Download</button> </CSVLink>
         </div> 
         <div className='rowC' >
               <GlobalFilter filter = {globalFilter} setFilter = {setGlobalFilter} />  

@@ -10,6 +10,7 @@ import Select from 'react-select';
 const AddUser = () => {
    
   const [username,setUserName] = useState('')
+  const [phoneNumber,setPhoneNumber] = useState('')
   const [firstName,setFirstName] = useState('')
   const [lastName,setLastName] = useState('')
   const [homeTeam,setHomeTeam] = useState('')
@@ -28,6 +29,7 @@ const AddUser = () => {
 
   
     const inputUsername = useRef();  
+    const inputPhoneNumber = useRef();  
     const inputFirstName = useRef();
   const inputLastName = useRef();
   const inputHomeTeam = useRef();
@@ -52,7 +54,8 @@ const AddUser = () => {
             homeTeam,
             username: trimmedUsername,
             password: trimmedPassword,
-            role
+            role,
+            phoneNumber
         };
 
         await UserService.saveUser(user).then((response) => {
@@ -100,6 +103,13 @@ const AddUser = () => {
         }
         else {
             inputPassword.current.style.color = "black";
+        }
+        if(phoneNumber < 1 || phoneNumber === null){
+            inputPhoneNumber.current.style.color = "red";
+            valid = false;
+        }
+        else {
+            inputPhoneNumber.current.style.color = "black";
         }
         
         return valid;
@@ -154,6 +164,24 @@ const AddUser = () => {
                                         className = "form-control"
                                         value = {username}
                                         onChange = {(e) => setUserName(e.target.value)} 
+                                        required />
+                            </div>
+                            <br/>
+                            <div  ref={inputPhoneNumber}>
+                                <h5>Phone Number:</h5>
+                                    <input
+                                        //type = "number"
+                                        type="text" // Use type="text" instead of type="number"
+                                        pattern="[0-9]*" // Use pattern to enforce numeric input on mobile devices
+                                        inputMode="numeric" // Set inputMode to numeric for better mobile support
+     
+                                       
+                                        placeholder = "Example: 1234567890"
+                                        name = "phoneNumber"
+                                        
+                                        className = "form-control"
+                                        value = {phoneNumber}
+                                        onChange = {(e) => setPhoneNumber(e.target.value.replace(/\D/, ''))} 
                                         required />
                             </div>
                             <br/>

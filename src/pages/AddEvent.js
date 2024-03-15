@@ -192,11 +192,11 @@ CourseService.getCourses().then((response) => {
                             </div>
                             <br/>
                             <div ref={inputTeeTimes}>
-                                <h5>Tee Times</h5>
+                                <h5># Slots</h5>
                                     <input
                                         type = "number"
                                         min = "1"
-                                        placeholder = "# Tee Times"
+                                        placeholder = "# Slots"
                                         name = "teeTimes"
                                         className = "form-control"
                                         value = {teeTimes}

@@ -52,22 +52,43 @@ const EditScoreModal=({idle,setIdle})=>{
                 <h5 >Event ID: {localStorage.eventID}</h5>
                 <h5 >Player: {localStorage.playerID + " - " + localStorage.playerName}</h5>
                 <h5 >Original Score: {localStorage.OGPlayerScore}</h5>
-                <h5 >New Score:</h5>
-                <input
-                    type="number"
-                    step = "1"
-                    min = "1"
-                    style = {{width:75}}
-                    onChange={e => {
-                    var eventID = localStorage.eventID;
-                    var playerID = localStorage.playerID;
-                    var playerScore = parseInt(e.target.value);  
-                    handleChange(eventID, playerID, playerScore)
-                    }}
-                />
-                <br/>
-                <br/>
-
+                {/*<div className = "userdetail">
+                  <span className='name' style={{marginLeft: 0}}>
+                    <h5>New Score:</h5>                     
+                  </span>
+                  <span className = "school">
+                    <input
+                      type="number"
+                      step = "1"
+                      min = "1"
+                      style = {{width:75}}
+                      onChange={e => {
+                      var eventID = localStorage.eventID;
+                      var playerID = localStorage.playerID;
+                      var playerScore = parseInt(e.target.value);  
+                      handleChange(eventID, playerID, playerScore)
+                      }}
+                    />               
+                  </span>
+                    </div>*/}
+                  <h5>
+                    New Score:
+                    <input
+                      type="number"
+                      step = "1"
+                      min = "1"
+                      style = {{width:75, height: 30, marginLeft: 10}}
+                      onChange={e => {
+                      var eventID = localStorage.eventID;
+                      var playerID = localStorage.playerID;
+                      var playerScore = parseInt(e.target.value);  
+                      handleChange(eventID, playerID, playerScore)
+                      }}
+                    />               
+                    
+                    
+                  </h5> 
+                  <br></br>
                 <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                     <button className = "btn btn-primary" style={{width:"35%" ,marginRight:"2%",display:"inline"}} onClick={()=>{
                         updatePlayerScores(editedPlayerScore);
