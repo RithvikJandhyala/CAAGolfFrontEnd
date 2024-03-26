@@ -23,8 +23,6 @@ import PlayerEnroll from './pages/PlayerEnroll';
 
 function RegisterRoutePaths() { 
   return (
-    
- 
        <Routes>
         <Route path="/" element={<App />} />
         <Route path="/home" element={<Players />} />

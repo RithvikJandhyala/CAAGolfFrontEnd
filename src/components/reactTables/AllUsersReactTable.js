@@ -16,7 +16,8 @@ const AllUsersReactTable=()=>{
   const [loading,setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate=useNavigate();
-  const schoolImages = [];
+  //const schoolImages = [];
+  const [schoolImages, setSchoolImages] = useState([]);
  
   useEffect(()=>{
     async function fetchData() {
@@ -136,7 +137,19 @@ const AllUsersReactTable=()=>{
         <h1 className = "text-center"><HiIcons.HiOutlineUserCircle style={{ marginBottom: 8 ,marginRight: 7}}/>User Management</h1>
        
         <div style={{float:"right",paddingRight:10}}>
-            <button type="button" className = "btn btn-primary mb-2" onClick={()=>{navigate('/add-user')}}  style={{marginRight: 10}}> <AiIcons.AiOutlineUser style={{ width: 20,height:20,marginRight: 5,marginBottom:6}}/>Add Users </button>
+          <button
+              type="button"
+              className="btn btn-primary mb-2"
+              style={{ marginRight: 10 }}
+              disabled={schoolImages.length === 0}
+              onClick={() => {
+                navigate('/add-user');
+              }}
+          >
+
+            <AiIcons.AiOutlineUser style={{ width: 20, height: 20, marginRight: 5, marginBottom: 6 }} />
+            Add Users
+          </button>
           <CSVLink data = {data} filename = 'Golf All Users'> <button type="button" className = "btn btn-primary mb-2">  <SiIcons.SiMicrosoftexcel  style={{ width: 20,height:20,marginRight: 5 ,marginBottom: 3}}/>Download</button> </CSVLink>
         </div>           
         <div className='rowC' >

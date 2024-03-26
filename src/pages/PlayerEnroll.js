@@ -43,7 +43,7 @@ const PlayerEnroll = () => {
         if(localStorage.role == "Admin"){
             navigate("/all-players");
         }
-        if(localStorage.eventID === undefined || localStorage.eventDate === undefined || localStorage.time === undefined ||localStorage.hostSchool === undefined ||localStorage.golfCourse === undefined || localStorage.slots === undefined){
+        if(localStorage.eventID === undefined || localStorage.division === undefined ||localStorage.eventDate === undefined || localStorage.time === undefined ||localStorage.hostSchool === undefined ||localStorage.golfCourse === undefined || localStorage.slots === undefined){
             navigate("/");
         }
         // get Schools
@@ -63,7 +63,7 @@ const PlayerEnroll = () => {
       
         async function fetchData() {
             setLoading(true);
-            await PlayerService.getPlayersBySchool(localStorage.school).then((response) => {           
+            await PlayerService.getPlayersBySchoolAndEventDivision(localStorage.school,localStorage.division).then((response) => {           
                 setPlayers(response.data);
             });
             console.log("School:"+localStorage.school+" Event:"+localStorage.eventID)
@@ -135,7 +135,7 @@ const PlayerEnroll = () => {
         prepareRow,
         state,
     
-    } = useTable({ columns, data  })
+    } = useTable({columns, data})
 
     const saveEventScorings = async(e) => {
         e.preventDefault(); 
@@ -149,6 +149,7 @@ const PlayerEnroll = () => {
                 localStorage.hostSchool = undefined;
                 localStorage.golfCourse = undefined;
                 localStorage.slots = undefined;
+                localStorage.division = undefined;
                 navigate ('/event-scoring');
             })
             setLoading(false);   
@@ -201,6 +202,8 @@ const PlayerEnroll = () => {
                                         </span>
                                     </h5>
                                     <br/>
+                                    <br/>
+                                    <h5 >Division: {localStorage.division}</h5>
                                     <br/>
                                     <h5>Host School:
                                     {isSchoolImagesLoaded  && (

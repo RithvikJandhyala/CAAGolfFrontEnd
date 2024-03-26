@@ -9,7 +9,7 @@ import SchoolService from '../../services/SchoolService';
 import ClipLoader from "react-spinners/ClipLoader";
 import Select from 'react-select';
 import pic from "../images/golfPlayer.png";
-
+import '../Navbar.css';
 const divisions = [
   { value: 'All Divisions', label: 'All Divisions' },
   { value: "JH", label: 'JH' },
@@ -187,15 +187,13 @@ const AllPlayersReactTable=()=>{
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()} style = {{background: 'white'}}> {column.render('Header')}
-                    <span> 
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ''
-                        : ''
-                      : ''}
-                    </span> 
-                    </th>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} style = {{background: 'white'}}> 
+                   <span className="headerText">{column.render('Header')}</span>
+                    <span>
+                      {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
+                    </span>
+
+                  </th>
                 ))}
               </tr>
             ))}

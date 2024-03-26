@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import BarLoader from "react-spinners/BarLoader";
 import SchoolService from '../services/SchoolService';
+import Alert from 'react-bootstrap/Alert';
 import Select from 'react-select';
 
 
@@ -17,6 +18,7 @@ const AddUser = () => {
   const [password,setPassword] = useState('')
   const [role,setRole] = useState('Coach')
   const optionsSchools = [];
+  const [error, setError] = useState("")
   const navigate  = useNavigate();
     useEffect(()=>{
         if(localStorage.username === undefined){
@@ -59,8 +61,13 @@ const AddUser = () => {
         };
 
         await UserService.saveUser(user).then((response) => {
-            localStorage.message = response.data;
-            navigate('/all-users');
+            if(response.data === "User with this email already exists"){
+                setError(response.data);
+            }
+            else{
+                localStorage.message = response.data;
+                navigate('/all-users');
+            }
         });
 
         setLoading(false);
@@ -130,6 +137,8 @@ const AddUser = () => {
         <Navbar /> 
      </header>
         <section>
+        {error && <Alert variant="danger">{error}</Alert>}  
+            <br></br>
         
         
            

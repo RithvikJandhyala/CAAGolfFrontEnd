@@ -1,5 +1,5 @@
 import React,{useState, useEffect, useRef } from 'react';
-import { useTable, useGlobalFilter} from 'react-table'
+import { useTable, useGlobalFilter,useSortBy} from 'react-table'
 import PlayerService from '../../services/PlayerService';
 import * as AiIcons from 'react-icons/ai';
 import * as BsIcons from 'react-icons/bs';
@@ -8,6 +8,7 @@ import ReactToPrint from 'react-to-print';
 import {useNavigate} from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import pic from "../images/golfPlayer.png";
+import '../Navbar.css';
 const PlayersReactTable=()=>{ 
   let componentRef = useRef(); 
   const navigate=useNavigate();
@@ -67,7 +68,7 @@ const PlayersReactTable=()=>{
     prepareRow,
     state,
     setGlobalFilter,
-  } = useTable({ columns, data  },useGlobalFilter)
+  } = useTable({ columns, data  },useGlobalFilter,useSortBy)
 
   const {globalFilter} = state
   return (
@@ -93,7 +94,12 @@ const PlayersReactTable=()=>{
                 {headerGroups.map(headerGroup => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map(column => (
-                      <th {...column.getHeaderProps()} style = {{background: 'white'}}> {column.render('Header')} </th>
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())} style = {{background: 'white'}}> 
+                     <span className="headerText">{column.render('Header')}</span>
+                        <span>
+                          {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
+                        </span>
+                      </th>
                     ))}
                   </tr>
                 ))}

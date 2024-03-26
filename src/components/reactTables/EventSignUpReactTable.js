@@ -97,6 +97,10 @@ const EventSignUpReactTable=()=>{
             accessor: 'id',        
           },
           {
+            Header: 'Division',
+            accessor: 'division',        
+          },
+          {
             Header: 'Course',
             accessor: 'golfCourse', 
             Cell: tableProps => (
@@ -105,11 +109,6 @@ const EventSignUpReactTable=()=>{
                 {tableProps.row.original.golfCourse}  
               </div> ),   
           },
-
-          /*{
-            Header: 'Division',
-            accessor: 'division',        
-          },*/
           {
             Header: 'Host School',
             accessor: 'hostSchool',   
@@ -125,11 +124,11 @@ const EventSignUpReactTable=()=>{
            // accessor: d => (<div>{d.player1ID} - {d.player1Name}</div>),
           },
           {
-            Header: 'Available Slots',
+            Header: ' # Available',
             accessor: 'slots' ,
            // accessor: d => (<div>{d.player1ID} - {d.player1Name}</div>),
           },
-          {  
+          /*{  
             Header: (localStorage.role != 'Admin' )? 'Sign Up':' ',
             Cell: tableProps => (
               <div>
@@ -143,7 +142,7 @@ const EventSignUpReactTable=()=>{
               </div>
             ),
 
-          },
+          },*/
           
           {
             Header:  'Action',
@@ -160,7 +159,7 @@ const EventSignUpReactTable=()=>{
                 : 
                 <button 
                     type="button" 
-                    className = "btn btn-primary"
+                    className={`btn ${signedUpEvents.includes(tableProps.row.original.id) ? 'btn-success' : 'btn-primary'}`}
                     style = {{height: 30,fontSize: 12}}
                     hidden = {tableProps.row.original.slots <= 0} 
                     onClick={()=>{
@@ -170,16 +169,14 @@ const EventSignUpReactTable=()=>{
                        localStorage.hostSchool = tableProps.row.original.hostSchool;
                        localStorage.golfCourse = tableProps.row.original.golfCourse;
                        localStorage.slots = tableProps.row.original.slots;
-                        navigate('/player-enroll')}}>
+                       localStorage.division = tableProps.row.original.division;
+                       navigate('/player-enroll')}}>
                    {(signedUpEvents.includes(tableProps.row.original.id))?   'Change': 'Sign Up' }
                 </button>
                 }             
                           
               </div> ),      
             }
-      
-
-      
     ],
     [signedUpEvents]
   )

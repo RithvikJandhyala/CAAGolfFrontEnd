@@ -44,16 +44,12 @@ const AddPlayer = () => {
         else {
             inputDivision.current.style.color = "black";
         }
-            if (playerName.length < 1) {
-                inputName.current.style.borderColor = "red";
-                valid = false;
-            } else {
-                inputName.current.style.borderColor = "black";
-            }
-           
-               
- 
-        
+        if (playerName.length < 1) {
+            inputName.current.style.borderColor = "red";
+            valid = false;
+        } else {
+            inputName.current.style.borderColor = "black";
+        }
         return valid;
   }
 

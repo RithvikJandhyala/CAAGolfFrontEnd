@@ -17,6 +17,7 @@ const AddEvent = () => {
   const [golfCourse,setGolfCourse] = useState('')
   const [hostSchool,setHostSchool] = useState('')
   const [teeTimes,setTeeTimes] = useState('')
+  const [division,setDivision] = useState('')
 
   const optionsSchools = [];
   const optionsCourses = [];
@@ -36,6 +37,7 @@ const AddEvent = () => {
   const inputGolfCourse = useRef();
   const inputHostSchool = useRef();
   const inputTeeTimes = useRef();
+  const inputDivision = useRef();
   
   
   const [loading,setLoading] = useState(false);
@@ -50,7 +52,8 @@ const AddEvent = () => {
                 time: time12,
                 golfCourse,
                 hostSchool,
-                teeTimes
+                teeTimes,
+                division
             }
             await EventService.saveEvent(event).then((response) => {                     
                 localStorage.message = response.data;
@@ -89,6 +92,13 @@ const AddEvent = () => {
         }
         else {
             inputHostSchool.current.style.color = "black";
+        }
+        if(division.length < 1){
+            inputDivision.current.style.color = "red";
+            valid = false;
+        }
+        else {
+            inputDivision.current.style.color = "black";
         }
         if(teeTimes < 1 || teeTimes === null){
             inputTeeTimes.current.style.color = "red";
@@ -189,6 +199,16 @@ CourseService.getCourses().then((response) => {
                                     onChange = {(e) =>{ setGolfCourse(e.label) }} 
                                     options={optionsCourses}
                                 /> 
+                            </div>
+                            <br/>
+                            <div ref={inputDivision}>
+                                <h5>Division:</h5>                    
+                                    <input type="radio" value="JH"  name="division" onChange = {(e) => setDivision(e.target.value)} /> Junior High
+                                    <br/>
+                                    <input type="radio" value="HS" name="division" onChange = {(e) => setDivision(e.target.value)} /> High School
+                                    <br/>
+                                    <input type="radio" value="JH|HS" name="division" onChange = {(e) => setDivision(e.target.value)} /> Junior High & High School
+                                    <br/>
                             </div>
                             <br/>
                             <div ref={inputTeeTimes}>

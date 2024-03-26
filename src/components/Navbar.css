@@ -110,6 +110,10 @@
   justify-content: start;
   align-items: center;
  }
+ /* Table.css */
+.headerText:hover {
+  color: rgb(111, 111, 111); /* Change the color to your desired color */
+}
 
 span {
   margin-left: 16px;

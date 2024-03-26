@@ -75,7 +75,7 @@ const AddScores = () => {
             {
                 eventsOptions.push({
                     value: response.data[i].id,
-                    label: response.data[i].id+" - "+response.data[i].eventDate
+                    label: "Event ID: "+ response.data[i].id+" | Date: "+response.data[i].eventDate + " | Division: " + response.data[i].division 
                 });
             }
         });

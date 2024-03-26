@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import Select from 'react-select';
 import EventService from '../../services/EventService.js';
+
 const divisions = [
   { value: 'All Divisions', label: 'All Divisions' },
   { value: "JH", label: 'JH' },
@@ -33,6 +34,7 @@ const EventScoringReactTable=()=>{
   const [selectedRow, setSelectedRow] = useState(null);
   const [idle, setIdle] = useState(false);
   const handleIdle = () => {setIdle(true);};
+  const [eventsOptions, setEventsOptions] = useState([]);
   useEffect(()=>{
     async function fetchData() {
       setLoading(true);
@@ -48,6 +50,16 @@ const EventScoringReactTable=()=>{
       });
       await EventService.getEventScorings().then((response) => {           
         setEventScorings(response.data);
+    });
+    eventsOptions.length = 0;
+      await EventService.getEventsBySchool(localStorage.school).then((response) => {           
+          for(var i = 0; i < response.data.length; i++) 
+          {
+              eventsOptions.push({
+                  value: response.data[i].id,
+                  label: "Event ID: "+ response.data[i].id+" | Date: "+response.data[i].eventDate + " | Division: " + response.data[i].division 
+              });
+          }
     });
     setLoading(false);  
      
@@ -69,6 +81,11 @@ const EventScoringReactTable=()=>{
     }    
     return null;
   };
+  const fetchData = ()=>{
+        
+       
+       
+    }
   
   const columns = React.useMemo(
     () => [
@@ -239,7 +256,7 @@ const EventScoringReactTable=()=>{
         <EditScoreModal idle={idle} setIdle={setIdle}></EditScoreModal>
          <h1 className = "text-center"><GiGolfTee style={{ marginBottom: 10,marginRight: 5}}/>Event Scoring</h1>
          <div style={{float:"right",paddingRight:10}}> 
-         {(localStorage.role != "Admin")? <button type="button" className = "btn btn-primary mb-2 " onClick={()=>{navigate('/add-scores')}} style={{marginRight: 10}}><MdScoreboard style={{ width: 20,height:20,marginRight: 5,marginBottom:2}}/>Add Scores</button> : <></>}
+         {(localStorage.role != "Admin")? <button type="button" className = "btn btn-primary mb-2 "  disabled={eventsOptions.length === 0} onClick={()=>{navigate('/add-scores')}} style={{marginRight: 10}}><MdScoreboard style={{ width: 20,height:20,marginRight: 5,marginBottom:2}}/>Add Scores</button> : <></>}
          <CSVLink data = {data} filename = 'Golf Event Scorings'> <button type="button" className = "btn btn-primary mb-2">  <SiIcons.SiMicrosoftexcel  style={{ width: 20,height:20,marginRight: 5 ,marginBottom: 3}}/>Download</button> </CSVLink>
         </div> 
         <div className='rowC' >

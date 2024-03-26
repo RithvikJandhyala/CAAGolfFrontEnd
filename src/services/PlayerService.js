@@ -4,6 +4,7 @@ const SERVER_URL = 'https://azcaagolfbackend-9b052d0a4071.herokuapp.com';
 const PLAYERS_REST_API_URL = SERVER_URL + '/findAllPlayers';
 const PLAYERS_BY_SCHOOL_REST_API_URL = SERVER_URL + '/findPlayersBySchool';
 const PLAYERS_BY_DIVISION_REST_API_URL = SERVER_URL + '/findPlayersByDivision';
+const PLAYERS_BY_SCHOOL_EVENTDIVISION_REST_API_URL = SERVER_URL + '/findPlayersBySchoolAndEventDivision';
 const PLAYERS_BY_SCHOOL_DIVISION_REST_API_URL = SERVER_URL + '/findPlayersBySchoolAndDivision';
 const PLAYER_CREATE_REST_API_URL = SERVER_URL + '/addPlayer';
 const PLAYER_DELETE = SERVER_URL + '/deletePlayer'
@@ -17,6 +18,10 @@ class PlayerService {
         var url = PLAYERS_BY_SCHOOL_REST_API_URL+"/"+school;
         return axios.get(url)
        
+    }
+    getPlayersBySchoolAndEventDivision(school,division){
+        var url = PLAYERS_BY_SCHOOL_EVENTDIVISION_REST_API_URL+"/"+school+"/"+division;
+        return axios.get(url)
     }
     getPlayersByDivision(division){
         var url = PLAYERS_BY_DIVISION_REST_API_URL+"/"+division;
