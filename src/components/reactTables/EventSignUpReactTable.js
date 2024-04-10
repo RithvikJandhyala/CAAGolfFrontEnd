@@ -224,7 +224,7 @@ const EventSignUpReactTable=()=>{
         </h1>
        
         <div style={{float:"right",paddingRight:10}}>
-          {(localStorage.role === "Admin")? <button type="button" className = "btn btn-primary mb-2" onClick={()=>{navigate('/add-event')}}  style={{marginRight: 10}}> <BsCalendarEventFill style={{ width: 20,height:20,marginRight: 6,marginBottom:4}}/>Add Event </button> : <></>} 
+          {(localStorage.role != "Admin")? <button type="button" className = "btn btn-primary mb-2" onClick={()=>{navigate('/add-event')}}  style={{marginRight: 10}}> <BsCalendarEventFill style={{ width: 20,height:20,marginRight: 6,marginBottom:4}}/>Add Event </button> : <></>} 
           <CSVLink data = {data} filename = 'Golf All Events'> <button type="button" className = "btn btn-primary mb-2" style={{marginRight: 10}}>  <SiIcons.SiMicrosoftexcel  style={{ width: 20,height:20,marginRight: 5 ,marginBottom: 3}}/>Download</button> </CSVLink>
           {(localStorage.role == "Admin")? <button type="button" className = "btn btn-primary mb-2" onClick={()=>{resetSeason()}}  style={{marginRight: 10}}> <IoMdRefresh style={{ width: 20,height:20,marginRight: 0}}/> Reset Season </button>  : <></>}
         </div>           

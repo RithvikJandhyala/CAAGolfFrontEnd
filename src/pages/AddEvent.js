@@ -26,7 +26,7 @@ const AddEvent = () => {
         if(localStorage.username === undefined){
             navigate("/");
         }
-        if(localStorage.role !== "Admin"){
+        if(localStorage.role === "Admin"){
             navigate("/home");
         }      
     });
@@ -35,7 +35,6 @@ const AddEvent = () => {
     const inputEventDate = useRef();  
     const inputTime = useRef();
   const inputGolfCourse = useRef();
-  const inputHostSchool = useRef();
   const inputTeeTimes = useRef();
   const inputDivision = useRef();
   
@@ -51,7 +50,7 @@ const AddEvent = () => {
                 eventDate: convEventDate,
                 time: time12,
                 golfCourse,
-                hostSchool,
+                hostSchool: localStorage.school,
                 teeTimes,
                 division
             }
@@ -85,13 +84,6 @@ const AddEvent = () => {
         }
         else {
             inputGolfCourse.current.style.color = "black";
-        }
-        if(hostSchool.length < 1){
-            inputHostSchool.current.style.color = "red";
-            valid = false;
-        }
-        else {
-            inputHostSchool.current.style.color = "black";
         }
         if(division.length < 1){
             inputDivision.current.style.color = "red";
@@ -174,20 +166,6 @@ CourseService.getCourses().then((response) => {
                                     onChange={(newTime) => setTime(newTime)}                                    
                                 />
                             </div>                            
-                            <br/>
-                           
-                         
-                            <div ref={inputHostSchool} >
-                                <h5>Host School:</h5>
-                                <Select
-                                    type = "text"
-                                    placeholder = "Select School"
-                                    //name={`player${index}Id`} 
-                                                               
-                                    onChange = {(e) =>{ setHostSchool(e.label) }} 
-                                    options={optionsSchools}
-                                /> 
-                            </div>
                             <br/>
                             <div ref={inputGolfCourse}>
                                 <h5>Golf Course:</h5>
