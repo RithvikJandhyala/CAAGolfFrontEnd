@@ -1,6 +1,6 @@
 import axios from 'axios'
-//const SERVER_URL = 'http://localhost:8080';
-const SERVER_URL = 'https://azcaagolfbackend-9b052d0a4071.herokuapp.com';
+const SERVER_URL = 'http://192.168.1.39:8080';
+//const SERVER_URL = 'https://azcaagolfbackend-9b052d0a4071.herokuapp.com';
 const EVENT_CREATE = SERVER_URL + '/addEvent';
 const EVENT_FIND_ALL = SERVER_URL + '/findAllEvents'
 const EVENT_DELETE = SERVER_URL + '/deleteEvent'

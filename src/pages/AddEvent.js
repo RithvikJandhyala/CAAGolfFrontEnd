@@ -8,6 +8,7 @@ import BarLoader from "react-spinners/BarLoader";
 import SchoolService from '../services/SchoolService';
 import CourseService from '../services/CourseService';
 import Select from 'react-select';
+import CurrencyInput from 'react-currency-input-field';
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 
@@ -15,6 +16,7 @@ const AddEvent = () => {
   const [eventDate,setEventDate] = useState(new Date());
   const [time,setTime] = useState('10:00')
   const [golfCourse,setGolfCourse] = useState('')
+  const [fee,setFee] = useState(0.00)
   const [hostSchool,setHostSchool] = useState('')
   const [teeTimes,setTeeTimes] = useState('')
   const [division,setDivision] = useState('')
@@ -37,6 +39,7 @@ const AddEvent = () => {
   const inputGolfCourse = useRef();
   const inputTeeTimes = useRef();
   const inputDivision = useRef();
+  const inputFee = useRef();
   
   
   const [loading,setLoading] = useState(false);
@@ -46,13 +49,15 @@ const AddEvent = () => {
             setLoading(true);
             const convEventDate = eventDate.toLocaleDateString();
             const time12 = new Date(`2000-01-01T${time}:00`).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });         
+            const doubleFee = parseFloat(fee);
             const event = {
                 eventDate: convEventDate,
                 time: time12,
                 golfCourse,
                 hostSchool: localStorage.school,
                 teeTimes,
-                division
+                division,
+                fee: doubleFee
             }
             await EventService.saveEvent(event).then((response) => {                     
                 localStorage.message = response.data;
@@ -98,6 +103,13 @@ const AddEvent = () => {
         }
         else {
             inputTeeTimes.current.style.color = "black";
+        }
+        if(fee < 0 || fee === null){
+            inputFee.current.style.color = "red";
+            valid = false;
+        }
+        else {
+            inputFee.current.style.color = "black";
         }
         
         return valid;
@@ -185,8 +197,24 @@ CourseService.getCourses().then((response) => {
                                     <br/>
                                     <input type="radio" value="HS" name="division" onChange = {(e) => setDivision(e.target.value)} /> High School
                                     <br/>
-                                    <input type="radio" value="JH|HS" name="division" onChange = {(e) => setDivision(e.target.value)} /> Junior High & High School
+                                    <input type="radio" value="JH-HS" name="division" onChange = {(e) => setDivision(e.target.value)} /> Junior High & High School
                                     <br/>
+                            </div>
+                            <br/>
+                            <div ref={inputFee}>
+                                <h5>Fee</h5>
+                                <CurrencyInput
+                                    id="validation-example-2-field"
+                                    placeholder="Enter Fee (Ex: $0.00)"
+                                    decimalsLimit={2}
+                                    className="form-control"
+                                    onValueChange={(e) => {
+                                        console.log(e); // Log the event object to check its structure
+                                        setFee(e); // Update fee state directly
+                                    }}
+                                    prefix={'$'}
+                                    step={10}
+                                />
                             </div>
                             <br/>
                             <div ref={inputTeeTimes}>
@@ -213,6 +241,9 @@ CourseService.getCourses().then((response) => {
                                 Cancel
                             </button>
                         </form>
+                        <div>
+                            <h1>{fee}</h1>
+                        </div>
 
                     </div>
                 </div>
@@ -222,6 +253,7 @@ CourseService.getCourses().then((response) => {
         </div>
         
     </div>
+    
     </section>
     </div>
   )

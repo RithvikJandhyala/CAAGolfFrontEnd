@@ -101,6 +101,11 @@ const EventSignUpReactTable=()=>{
             accessor: 'division',        
           },
           {
+            Header: 'Fee',
+            accessor: 'fee',
+            Cell: ({ value }) => `$${value}` // Adding a dollar sign in front of the fee
+          },
+          {
             Header: 'Course',
             accessor: 'golfCourse', 
             Cell: tableProps => (
