@@ -1,6 +1,6 @@
 import axios from 'axios'
-const SERVER_URL = 'http://192.168.1.39:8080';
-//const SERVER_URL = 'https://azcaagolfbackend-9b052d0a4071.herokuapp.com';
+//const SERVER_URL = 'http://192.168.1.39:8080';
+const SERVER_URL = 'https://azcaagolfbackend-9b052d0a4071.herokuapp.com';
 const MATCHES_REST_API_URL = SERVER_URL + '/findAllMatches';
 const MATCHES_DAY_SUMMARY_REST_API_URL = SERVER_URL + '/findAllMatchDaySummary';
 const TEAM_STANDING_REST_API_URL = SERVER_URL + '/findTeamStanding';
